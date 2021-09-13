@@ -1,0 +1,39 @@
+<% current_nick = current_user.nick %>
+<div class="chat">
+  <header>
+    <a href="/chats" class="btn btn-icon back">
+      <img src="/images/back.png">
+    </a>
+    <h3>Your personal chat with <%= @receiver.nick %></h3>
+
+    <form action="/chat/destroy" method="post">
+      <button type="submit" class="btn btn-red">Delete all messages</button>
+    </form>
+
+    <a href="" class="btn btn-green refresh">Reload</a>
+  </header>
+  <div id="messages" class="messages">
+    <ul>
+      <% @messages.each do |message| %>
+        <li class="message <%= 'current-user-message' if message.mailer.nick == current_nick %>">
+          <div class="message-inner">
+            <span class="message-date">
+              <%= message.created_at.strftime('%Y-%m-%d %H:%M') %>
+            </span>
+            <br>
+            <span class="message-content">
+              <%= message.content %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <footer>
+    <form action="/messages/create" method="post">
+      <input type="hidden" name="receiver_id" value="<%= @receiver.id %>">
+      <textarea name="content"></textarea>
+      <button type="submit" class="btn-icon"><img src="/images/send.png"></button>
+    </form>
+  </footer>
+</div>

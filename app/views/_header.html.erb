@@ -1,0 +1,20 @@
+<header class="header">
+  <a href="/chats" class="logo">
+    <img src="/images/logo.png">
+  </a>
+  <nav class="nav">
+    <% if logged_in? %>
+      <div>
+        <a>
+          <%= "This your chat #{current_user.nick}" %>
+        </a>
+      </div>
+      <form action="/sessions/destroy" method="post">
+        <button type="submit" class="btn btn-red">Sing out</button>
+      </form>
+    <% else %>
+      <a href="/sessions/new" class="btn btn-blue">Sign in</a>
+      <a href="/registration/new" class="btn btn-blue">Sign up</a>
+    <% end %>
+  </nav>
+</header>
